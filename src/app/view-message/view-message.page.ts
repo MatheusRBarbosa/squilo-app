@@ -1,11 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { DataService, Message } from '../services/data.service';
 
 @Component({
+  standalone: true,
   selector: 'app-view-message',
   templateUrl: './view-message.page.html',
   styleUrls: ['./view-message.page.scss'],
+  imports: [
+    CommonModule,
+    IonicModule
+  ]
 })
 export class ViewMessagePage implements OnInit {
   public message!: Message;
