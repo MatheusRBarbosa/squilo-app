@@ -1,0 +1,7 @@
+{
+  "name": "Squilo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
