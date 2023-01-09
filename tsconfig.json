@@ -18,6 +18,11 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "paths": {
+      "@squilo/services": ["src/libs/services/index.ts"],
+      "@squilo/core": ["src/libs/core/index.ts"],
+      "@squilo/domain": ["src/libs/domain/index.ts"],
+    },
     "lib": [
       "es2018", 
       "dom"
