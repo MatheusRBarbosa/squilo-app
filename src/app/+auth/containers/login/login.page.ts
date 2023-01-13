@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { User } from '@squilo/domain';
-import { ToastService } from '@squilo/services';
+import { AccountService, ToastService } from '@squilo/services';
 import { DefaultError } from 'src/libs/services/interceptors';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    // private account: AccountService,
+    private account: AccountService,
     private toast: ToastService
   ) {}
 
@@ -41,10 +41,10 @@ export class LoginPage implements OnInit {
    *
    */
   submit = () => {
-    // this.account.login(this.form.value).subscribe({
-    //   next: this.redirectUser,
-    //   error: this.onSubmitError,
-    // });
+    this.account.login(this.form.value).subscribe({
+      next: this.redirectUser,
+      error: this.onSubmitError,
+    });
   };
 
   /**
