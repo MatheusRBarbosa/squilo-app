@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { User } from '@squilo/domain';
-import { AccountService, ToastService } from '@squilo/services';
-import { DefaultError } from 'src/libs/services/interceptors';
+import { ToastService, DefaultError, AccountService } from '@squilo/services';
 
 @Component({
   standalone: true,
