@@ -20,7 +20,7 @@ export const toHttpParams = (params: Params = {}) => {
 export class ApiBaseService<T extends { id: number }> {
   protected resource: string = '';
   protected get api(): string {
-    return `https://company-tycoon-online.herokuapp.com/api/${this.resource}`;
+    return `http://localhost:8000/api/v1/${this.resource}`;
   }
 
   constructor(protected http: HttpClient) {}

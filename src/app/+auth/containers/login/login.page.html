@@ -1,34 +1,26 @@
-<ion-content [fullscreen]="true">
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <ion-grid>
-      <ion-row>
-        <ion-card color="primary">
-          <ion-item lines="none" color="primary">
-            <ion-label position="stacked">Email</ion-label>
-            <ion-input
-              type="text"
-              placeholder="your email"
-              formControlName="email"
-            ></ion-input>
-          </ion-item>
-          <ion-item lines="none" color="primary">
-            <ion-label position="stacked" minlength="6">Password</ion-label>
-            <ion-input
-              type="password"
-              placeholder="******"
-              formControlName="password"
-            ></ion-input>
-          </ion-item>
-          <ion-item lines="none" color="primary">
-            <ion-label (click)="forgot()" class="forgot"> Forgot? </ion-label>
-          </ion-item>
-        </ion-card>
-      </ion-row>
-      <ion-row class="ion-justify-content-center">
-        <ion-button type="submit" [disabled]="!form.valid" class="btn"
-          >Login</ion-button
-        >
-      </ion-row>
-    </ion-grid>
-  </form>
+<ion-content>
+  <div class="animated-bg">
+    <ion-slides
+      (ionSlideReachEnd)="setSelectedPage(2)"
+      (ionSlideReachStart)="setSelectedPage(1)"
+      #slides
+    >
+      <ion-slide class="slide">
+        <squilo-page-slider
+          (onClick)="onClickPageSlider($event)"
+          [index]="selectedPage"
+        ></squilo-page-slider>
+        <squilo-login-slide></squilo-login-slide>
+      </ion-slide>
+      <ion-slide class="slide">
+        <squilo-page-slider
+          (onClick)="onClickPageSlider($event)"
+          [index]="selectedPage"
+        ></squilo-page-slider>
+        <squilo-signup-slide
+          (signupCompleted)="signupCompleted($event)"
+        ></squilo-signup-slide>
+      </ion-slide>
+    </ion-slides>
+  </div>
 </ion-content>

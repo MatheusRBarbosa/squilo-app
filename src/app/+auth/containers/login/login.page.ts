@@ -1,70 +1,48 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { User } from '@squilo/domain';
-import { ToastService, DefaultError, AccountService } from '@squilo/services';
+import { Component, ViewChild } from '@angular/core';
+import { IonicModule, IonSlides } from '@ionic/angular';
+import { LoginSlide } from '../../components/login-slide/login-slide.component';
+import { PageSlider } from '../../components/page-slider/page-slider.component';
+import { SignupSlide } from '../../components/signup-slide/signup-slide.component';
+
+enum SlidePages {
+  Login = 1,
+  Signup = 2,
+}
 
 @Component({
   standalone: true,
   selector: 'squilo-login-page',
   templateUrl: './login.page.html',
   styleUrls: ['login.page.scss'],
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, LoginSlide, SignupSlide, PageSlider],
 })
-export class LoginPage implements OnInit {
-  form!: FormGroup;
+export class LoginPage {
+  selectedPage: number = SlidePages.Login;
 
-  constructor(
-    public formBuilder: FormBuilder,
-    private account: AccountService,
-    private toast: ToastService
-  ) {}
+  @ViewChild(IonSlides) slides?: IonSlides;
+  constructor() {}
 
   /**
    *
    */
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
+  setSelectedPage = (page: number) => (this.selectedPage = page);
 
   /**
    *
    */
-  submit = () => {
-    this.account.login(this.form.value).subscribe({
-      next: this.redirectUser,
-      error: this.onSubmitError,
-    });
+  onClickPageSlider = (page: number) => {
+    page === SlidePages.Signup
+      ? this.slides?.slideNext()
+      : this.slides?.slidePrev();
   };
 
   /**
    *
    */
-  forgot = () => {
-    console.log('Redirect para esqueceu a senha');
-  };
-
-  /**
-   *
-   */
-  private redirectUser = (user: User) => {
-    console.log(user);
-  };
-
-  /**
-   *
-   */
-  private onSubmitError = (error: DefaultError) => {
-    console.log(error);
-    this.toast.show({ message: error.message, color: 'danger' });
+  signupCompleted = (completed: boolean) => {
+    if (completed) {
+      this.slides?.slidePrev();
+    }
   };
 }

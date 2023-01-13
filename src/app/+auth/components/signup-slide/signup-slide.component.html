@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <ion-grid>
+    <ion-row>
+      <ion-card color="primary">
+        <ion-item lines="none" color="primary">
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input
+            type="text"
+            placeholder="your username"
+            formControlName="username"
+          ></ion-input>
+          <squilo-validation-status
+            [validationMessages]="validationMessages"
+            [form]="form"
+            controlName="username"
+          >
+          </squilo-validation-status>
+          >
+        </ion-item>
+        <ion-item lines="none" color="primary">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input
+            type="email"
+            placeholder="your@email.com"
+            formControlName="email"
+          ></ion-input>
+          <squilo-validation-status
+            [validationMessages]="validationMessages"
+            [form]="form"
+            controlName="email"
+          >
+          </squilo-validation-status>
+        </ion-item>
+        <ion-item lines="none" color="primary">
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input
+            type="password"
+            placeholder="******"
+            formControlName="password"
+          ></ion-input>
+          <squilo-validation-status
+            [validationMessages]="validationMessages"
+            [form]="form"
+            controlName="password"
+          >
+          </squilo-validation-status>
+        </ion-item>
+        <ion-item lines="none" color="primary">
+          <ion-label position="stacked">Password confirmation</ion-label>
+          <ion-input
+            type="password"
+            placeholder="******"
+            formControlName="confirmationPassword"
+          ></ion-input>
+          <squilo-validation-status
+            [validationMessages]="validationMessages"
+            [form]="form"
+            controlName="confirmationPassword"
+          >
+          </squilo-validation-status>
+        </ion-item>
+        <ion-item lines="none" color="primary"></ion-item>
+      </ion-card>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-button type="submit" [disabled]="!form.valid" class="btn"
+        >Sign up</ion-button
+      >
+    </ion-row>
+  </ion-grid>
+</form>

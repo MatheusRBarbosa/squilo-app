@@ -1,0 +1,9 @@
+ion-card {
+    width: 25em;
+    border: 3px solid var(--ion-color-tertiary);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
