@@ -3,10 +3,9 @@ ion-content {
 
     .animated-bg {
         height: 100%;
-        // background-image: url('/assets/blueprint-bg.png');
-        background-color: green;
+        background-image: url('/assets/nuts-pattern.svg');
         background-size: cover;
-        animation: scroll 230s linear infinite;
+        animation: scroll 160s linear infinite;
     }
 }
 
@@ -21,6 +20,6 @@ ion-slides {
 
 @keyframes scroll {
     100% {
-        background-position: -3000px 0px;
+        background-position: 0px 3000px;
     }
 }
