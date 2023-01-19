@@ -36,20 +36,13 @@ export class SignupSlide implements OnInit {
   form!: FormGroup;
 
   validationMessages: ValidationMessages = {
-    username: {
-      required: 'Username is required',
-      minlength: 'Username needs at least 4 characters',
-      maxlength: 'Username must have a maximum of 24 characters',
-      usernameAsync: 'Username is taken',
-    },
     email: {
-      required: 'Email is required',
-      email: 'We need a valid email ;)',
-      emailAsync: 'Email is taken',
+      required: 'E-mail é obrigatório',
+      email: 'Precisamos de um e-mail válido ;)',
     },
     password: {
-      required: 'Passsword is required',
-      minlength: 'Username needs at least 6 characters',
+      required: 'Senha é obrigatório',
+      minlength: 'Senha precisa ter no mínimo 6 caracteres',
     },
   };
 
@@ -80,14 +73,6 @@ export class SignupSlide implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group(
       {
-        username: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(24),
-          ],
-        ],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmationPassword: ['', []],

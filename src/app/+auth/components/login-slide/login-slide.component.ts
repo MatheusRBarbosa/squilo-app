@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ValidationMessages, ValidationStatusComponent } from '@squilo/core';
 import { User } from '@squilo/domain';
 import { ToastService, DefaultError, AccountService } from '@squilo/services';
 
@@ -15,10 +16,22 @@ import { ToastService, DefaultError, AccountService } from '@squilo/services';
   selector: 'squilo-login-slide',
   templateUrl: './login-slide.component.html',
   styleUrls: ['login-slide.component.scss'],
-  imports: [CommonModule, IonicModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    ReactiveFormsModule,
+    ValidationStatusComponent,
+  ],
 })
 export class LoginSlide implements OnInit {
   form!: FormGroup;
+
+  validationMessages: ValidationMessages = {
+    password: {
+      required: 'Senha é obrigatório',
+      minlength: 'Senha precisa ter no mínimo 6 caracteres',
+    },
+  };
 
   constructor(
     public formBuilder: FormBuilder,

@@ -24,30 +24,3 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
-@font-face {
-    font-family: 'HeyComic';
-    src: url('./assets/fonts/HeyComic.ttf');
-}
-
-@font-face {
-    font-family: 'ComicHelvetic';
-    font-weight: 400;
-    src: url('./assets/fonts/ComicHelvetic_Medium.otf');
-}
-
-@font-face {
-    font-family: 'ComicHelvetic';
-    font-weight: 300;
-    src: url('./assets/fonts/ComicHelvetic_Light.otf');
-}
-
-@font-face {
-    font-family: 'ComicHelvetic';
-    font-weight: 700;
-    src: url('./assets/fonts/ComicHelvetic_Heavy.otf');
-}
-
-* {
-    font-family: 'ComicHelvetic' !important;
-}

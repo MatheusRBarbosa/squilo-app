@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'HeyComic';
+    src: url('../assets/fonts/HeyComic.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'ComicHelvetic';
+    font-weight: 400;
+    src: url('../assets/fonts/ComicHelvetic_Medium.otf');
+}
+
+@font-face {
+    font-family: 'ComicHelvetic';
+    font-weight: 300;
+    src: url('../assets/fonts/ComicHelvetic_Light.otf');
+}
+
+@font-face {
+    font-family: 'ComicHelvetic';
+    font-weight: 700;
+    src: url('../assets/fonts/ComicHelvetic_Heavy.otf');
+}
+
+* {
+    font-family: 'ComicHelvetic' !important;
+}
+
+.btn {
+    --border-width: 3px;
+    --border-color: var(--ion-color-secondary);
+    --border-style: solid;
+    --border-radius: 14px;
+    min-width: 160px;
+    min-height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.validation-error {
+    font-size: 16px;
+    color: var(--ion-color-danger);
+}
+
+ion-item {
+    font-size: 20px;
+
+    ion-label {
+        opacity: .6;
+    }
+}

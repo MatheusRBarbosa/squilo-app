@@ -1,16 +1,32 @@
 ion-content {
-    --ion-background-color: var(--ion-color-secondary);
+    --ion-background-color: white;
 
     .animated-bg {
         height: 100%;
         background-image: url('/assets/nuts-pattern.svg');
         background-size: cover;
-        animation: scroll 160s linear infinite;
+        animation: scroll 300s linear infinite;
+    }
+}
+
+.logo {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    span {
+        font-size: 50px;
+        font-family: 'HeyComic' !important;
+        color: var(--ion-color-primary);
+        text-shadow: 2px 0 #363636, -2px 0 #363636, 0 2px #363636, 0 -2px #363636,
+            1px 1px #363636, -1px -1px #363636, 1px -1px #363636, -1px 1px #363636,
     }
 }
 
 ion-slides {
-    height: 100%;
+    height: 90%;
 
     .slide {
         display: flex;
@@ -20,6 +36,6 @@ ion-slides {
 
 @keyframes scroll {
     100% {
-        background-position: 0px 3000px;
+        background-position: -1000px 3000px;
     }
 }
