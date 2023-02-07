@@ -7,3 +7,14 @@ ion-card {
     justify-content: center;
     align-items: center;
 }
+
+.input-date {
+    display: flex;
+    justify-content: flex-start;
+    width: 19.5rem;
+    height: 5rem;
+
+    ion-label {
+        margin-bottom: 0.5rem;
+    }
+}

@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 export class ToastService {
   private toast: any;
   private defaultOptions: ToastOptions = {
-    duration: 3000,
+    duration: 10000,
     position: 'bottom',
     color: 'primary',
   };

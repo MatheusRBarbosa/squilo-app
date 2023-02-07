@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LoadingService {
-  private loading: any;
+  private loading?: HTMLIonLoadingElement;
 
   /**
    * Creates an instance of LoadingService.
@@ -14,11 +14,8 @@ export class LoadingService {
   /**
    * Exibe o loading com delay
    */
-  show = (opts: LoadingOptions | string) => {
-    const loading = this.instance(opts);
-    from(loading).subscribe((loading) => loading.present());
-
-    return loading;
+  show = async (opts: LoadingOptions | string) => {
+    (await this.instance(opts)).present();
   };
 
   /**
@@ -27,7 +24,7 @@ export class LoadingService {
   dismiss = () => {
     if (this.loading) {
       this.loading.dismiss();
-      this.loading = null;
+      this.loading = undefined;
     }
   };
 

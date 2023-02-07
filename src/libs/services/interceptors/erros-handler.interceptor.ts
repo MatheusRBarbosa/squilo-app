@@ -34,6 +34,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   private normalizeServerError = (err: HttpErrorResponse | any) => {
     if (err.error instanceof Error) {
       // A client-side or network error occurred. Handle it accordingly.
+      console.log('Client error');
       return throwError(() => err.error.message);
     } else {
       // The backend returned an unsuccessful response code.
@@ -47,10 +48,11 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         body = err.error;
       }
 
-      //TODO: ajustar lógica
       if (err.status === 422) {
         const firstError = Object.keys(body.errors).shift();
         message = `${body.errors[firstError!].join(' ')}`;
+      } else if (err.status === 400 && Array.isArray(body.errors)) {
+        message = `${body.errors[0].message}`;
       } else {
         if (typeof body === 'string') {
           message = body;

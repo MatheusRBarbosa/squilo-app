@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -15,7 +16,7 @@ import {
   LoadingService,
   ToastService,
 } from '@squilo/services';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { ValidationStatusComponent } from '@squilo/core';
 @Component({
   standalone: true,
@@ -33,9 +34,21 @@ export class SignupSlide implements OnInit {
   @Output()
   signupCompleted = new EventEmitter<boolean>();
 
-  form!: FormGroup;
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+    birthDate: new FormControl(new Date()),
+    password: new FormControl(''),
+    confirmationPassword: new FormControl(''),
+  });
 
   validationMessages: ValidationMessages = {
+    name: {
+      required: 'Nome é obrigatório',
+    },
+    birthDate: {
+      required: 'Data de nascimento é obrigatório',
+    },
     email: {
       required: 'E-mail é obrigatório',
       email: 'Precisamos de um e-mail válido ;)',
@@ -56,24 +69,12 @@ export class SignupSlide implements OnInit {
   /**
    *
    */
-  get username() {
-    return this.form.get('username');
-  }
-
-  /**
-   *
-   */
-  get email() {
-    return this.form.get('email');
-  }
-
-  /**
-   *
-   */
   ngOnInit() {
     this.form = this.formBuilder.group(
       {
+        name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
+        birthDate: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmationPassword: ['', []],
       },
@@ -86,8 +87,8 @@ export class SignupSlide implements OnInit {
   /**
    *
    */
-  submit = () => {
-    this.loading.show('Please wait...');
+  submit = async () => {
+    await this.loading.show('Aguarde...');
     this.api.user
       .create({ ...this.form.value })
       .pipe(finalize(() => this.loading.dismiss()))
@@ -102,7 +103,7 @@ export class SignupSlide implements OnInit {
    */
   private onSuccessCreate = (user: User) => {
     this.toast.show({
-      message: 'Account created succefully',
+      message: 'Conta criada com sucesso. Você já pode logar',
       color: 'success',
     });
     this.signupCompleted.emit(true);
