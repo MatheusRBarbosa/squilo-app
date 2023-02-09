@@ -6,10 +6,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ValidationMessages, ValidationStatusComponent } from '@squilo/core';
 import { User } from '@squilo/domain';
-import { ToastService, DefaultError, AccountService } from '@squilo/services';
+import {
+  ToastService,
+  DefaultError,
+  AccountService,
+  LoadingService,
+} from '@squilo/services';
+import { finalize } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -35,8 +42,10 @@ export class LoginSlide implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    private loading: LoadingService,
     private account: AccountService,
-    private toast: ToastService
+    private toast: ToastService,
+    private router: Router
   ) {}
 
   /**
@@ -52,11 +61,15 @@ export class LoginSlide implements OnInit {
   /**
    *
    */
-  submit = () => {
-    this.account.login(this.form.value).subscribe({
-      next: this.redirectUser,
-      error: this.onSubmitError,
-    });
+  submit = async () => {
+    await this.loading.show('Aguarde...');
+    this.account
+      .login(this.form.value)
+      .pipe(finalize(this.loading.dismiss))
+      .subscribe({
+        next: this.redirectUser,
+        error: this.onSubmitError,
+      });
   };
 
   /**
@@ -74,7 +87,7 @@ export class LoginSlide implements OnInit {
    *
    */
   private redirectUser = (user: User) => {
-    console.log(user);
+    this.router.navigate(['home']);
   };
 
   /**

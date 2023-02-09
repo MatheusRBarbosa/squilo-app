@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Credentials, Token, User } from '@squilo/domain';
 import { Observable, of } from 'rxjs';
-import { finalize, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import {
   AccountState,
+  ACCOUNT_STORE,
   JwtHelper,
   resetStore,
   setToken,
   setUser,
 } from '../state/account';
 import { ApiFacade } from './api';
-import { LoadingService } from './loading.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -19,27 +19,22 @@ export class AccountService {
 
   constructor(
     private store: Store<{ account: AccountState }>,
-    private loading: LoadingService,
     private api: ApiFacade,
     private jwt: JwtHelper
   ) {
-    this.account$ = this.store.select('account');
+    this.account$ = this.store.select(ACCOUNT_STORE);
   }
 
   /**
    *
    */
   login = (credentials: Credentials | Token): Observable<User> => {
-    this.loading.show('Aguarde...');
     const login$ =
       typeof credentials === 'string'
         ? of(credentials)
         : this.api.auth.login(credentials);
 
-    return login$.pipe(
-      mergeMap((token) => this.createUserFromToken(token)),
-      finalize(this.loading.dismiss)
-    );
+    return login$.pipe(mergeMap((token) => this.createUserFromToken(token)));
   };
 
   /**

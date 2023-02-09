@@ -8,21 +8,23 @@ import {
 } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AccountService } from '../providers';
-import { AccountState } from '../state';
+import { AccountState, ACCOUNT_STORE } from '../state';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   private accountService!: AccountService;
-  private account$: Observable<AccountState>;
+  private token!: string | undefined;
 
   constructor(
     private store: Store<{ account: AccountState }>,
     private injector: Injector
   ) {
-    this.account$ = this.store.select('account');
+    this.store
+      .select(ACCOUNT_STORE)
+      .subscribe((account) => (this.token = account.token));
   }
 
   /**
@@ -34,9 +36,11 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.accountService = this.injector.get<AccountService>(AccountService);
 
-    return this.account$.pipe(
-      mergeMap((state) => this.createRequest(req, state.token)),
-      mergeMap((newReq) => next.handle(newReq)),
+    const newReq = req.headers.has('anonymous')
+      ? this.createAnonymousRequest(req)
+      : this.createAuthRequest(req);
+
+    return next.handle(newReq).pipe(
       catchError((response: HttpErrorResponse) => {
         if (response.status === 401) {
           this.accountService.logout();
@@ -50,20 +54,9 @@ export class JwtInterceptor implements HttpInterceptor {
   /**
    *
    */
-  protected createRequest(req: HttpRequest<any>, token?: string) {
-    return of(
-      req.headers.has('anonymous')
-        ? this.createAnonymousRequest(req)
-        : this.createAuthRequest(req, token!)
-    );
-  }
-
-  /**
-   *
-   */
-  protected createAuthRequest(req: HttpRequest<any>, token: string) {
+  protected createAuthRequest(req: HttpRequest<any>) {
     return req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`),
+      headers: req.headers.set('Authorization', `Bearer ${this.token}`),
     });
   }
 

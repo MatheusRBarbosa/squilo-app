@@ -4,7 +4,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then((c) => c.HomePage),
+    loadComponent: () =>
+      import('./+vault/containers/vault-list/vault-list.page').then(
+        (p) => p.VaultListPage
+      ),
   },
   {
     path: 'message/:id',
