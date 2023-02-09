@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, LoadingOptions } from '@ionic/angular';
-import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LoadingService {

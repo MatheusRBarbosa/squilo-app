@@ -63,7 +63,11 @@ export class LoginSlide implements OnInit {
    *
    */
   forgot = () => {
-    console.log('Redirect para esqueceu a senha');
+    this.toast.show({
+      duration: 10000,
+      message: 'Funcionalidade ainda não implementada =(',
+      color: 'warning',
+    });
   };
 
   /**
