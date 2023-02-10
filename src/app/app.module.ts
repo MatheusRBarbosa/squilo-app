@@ -6,7 +6,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { accountReducer, InterceptorsProviders } from '@squilo/services';
+import {
+  reducers,
+  metaReducers,
+  InterceptorsProviders,
+} from '@squilo/services';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -15,7 +19,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    StoreModule.forRoot({ account: accountReducer }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     AppRoutingModule,
     HttpClientModule,
   ],
