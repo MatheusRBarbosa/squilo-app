@@ -42,8 +42,7 @@ export class VaultListPage implements OnInit {
    *
    */
   handleClickInfo = (vault: Vault) => {
-    console.log(vault);
-    this.modal.present();
     this.currentVaultModal = vault;
+    this.modal.present();
   };
 }
