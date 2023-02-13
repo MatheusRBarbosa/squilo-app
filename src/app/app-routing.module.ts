@@ -10,11 +10,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'message/:id',
-    loadComponent: () =>
-      import('./view-message/view-message.page').then((c) => c.ViewMessagePage),
-  },
-  {
     path: '',
     loadComponent: () =>
       import('./+auth/containers/login/login.page').then((p) => p.LoginPage),
