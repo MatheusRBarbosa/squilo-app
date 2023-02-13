@@ -1,0 +1,25 @@
+<ion-grid class="vault">
+  <ion-row>
+    <ion-col>
+      <ion-row class="title ion-align-items-center">
+        {{ vault.name }}
+        <ion-icon
+          (click)="onClickInfo()"
+          name="information-circle-outline"
+        ></ion-icon
+      ></ion-row>
+      <ion-row class="label"> {{ vault.type.name }} </ion-row>
+    </ion-col>
+    <ion-col>
+      <ion-row
+        [ngClass]="{ exceeded: exceededLimit }"
+        class="ion-justify-content-end"
+      >
+        {{ vault.total | vaultCurrency }}
+      </ion-row>
+      <ion-row class="ion-justify-content-end label">{{
+        vault.totalLabel
+      }}</ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>

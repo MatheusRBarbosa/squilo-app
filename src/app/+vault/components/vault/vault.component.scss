@@ -1,0 +1,19 @@
+.vault {
+    .title {
+        color: var(--ion-color-primary);
+
+        ion-icon {
+            margin-left: 0.1rem;
+            color: var(--ion-color-tertiary);
+        }
+    }
+
+    .label {
+        color: var(--ion-color-tertiary);
+        font-size: 12px;
+    }
+
+    .exceeded {
+        color: var(--squilo-exceeded-color);
+    }
+}

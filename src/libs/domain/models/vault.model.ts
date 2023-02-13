@@ -7,4 +7,5 @@ export class Vault extends Model {
   total!: number;
   typeId!: number;
   type!: VaultType;
+  totalLabel!: string;
 }
