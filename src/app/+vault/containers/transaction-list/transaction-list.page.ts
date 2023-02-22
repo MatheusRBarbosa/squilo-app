@@ -1,49 +1,47 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonicModule, IonModal } from '@ionic/angular';
-import { Vault } from '@squilo/domain';
+import { Transaction, Vault } from '@squilo/domain';
 import { ApiFacade } from '@squilo/services';
 import { tap } from 'rxjs';
-import { VaultComponent } from '../../components';
 import { NavbarComponent } from '../../../shared';
+import { TransactionComponent } from '../../components';
 
 @Component({
   standalone: true,
   selector: 'squilo-transaction-list-page',
   templateUrl: './transaction-list.page.html',
   styleUrls: ['transaction-list.page.scss'],
-  imports: [IonicModule, CommonModule, VaultComponent, NavbarComponent],
+  imports: [IonicModule, CommonModule, TransactionComponent, NavbarComponent],
 })
 export class TransactionListPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
-  currentVaultModal!: Vault;
-  vaultList!: Vault[];
+  currentTransaction!: Transaction;
+  transactions!: Transaction[];
+  currentVault!: Vault;
 
-  constructor(private api: ApiFacade) {}
+  constructor(private api: ApiFacade, private router: Router) {}
 
   /**
    *
    */
   ngOnInit(): void {
-    this.api.vault
-      .getAll()
-      .pipe(tap((vaultList) => (this.vaultList = vaultList)))
+    const state: any = this.router.getCurrentNavigation()?.extras.state;
+    this.currentVault = state.vault;
+
+    this.api.transaction
+      .getAll(`${this.currentVault.id}/transaction`)
+      .pipe(tap((transactions) => (this.transactions = transactions)))
       .subscribe();
   }
 
   /**
    *
    */
-  t = () => {
-    console.log(this.vaultList);
-  };
-
-  /**
-   *
-   */
-  handleClickInfo = (vault: Vault) => {
-    this.currentVaultModal = vault;
-    this.modal.present();
-  };
+  // handleClickInfo = (vault: Vault) => {
+  //   this.currentVaultModal = vault;
+  //   this.modal.present();
+  // };
 }

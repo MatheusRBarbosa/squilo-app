@@ -6,6 +6,7 @@ import { ApiFacade } from '@squilo/services';
 import { tap } from 'rxjs';
 import { VaultComponent } from '../../components';
 import { NavbarComponent } from '../../../shared';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -20,7 +21,7 @@ export class VaultListPage implements OnInit {
   currentVaultModal!: Vault;
   vaultList!: Vault[];
 
-  constructor(private api: ApiFacade) {}
+  constructor(private api: ApiFacade, private router: Router) {}
 
   /**
    *
@@ -45,5 +46,18 @@ export class VaultListPage implements OnInit {
   handleClickInfo = (vault: Vault) => {
     this.currentVaultModal = vault;
     this.modal.present();
+  };
+
+  /**
+   *
+   */
+  handleClickVault = (vault: Vault) => {
+    const extras: NavigationExtras = {
+      state: {
+        vault,
+      },
+    };
+
+    this.router.navigate([`vault/${vault.id}/transactions`], extras);
   };
 }

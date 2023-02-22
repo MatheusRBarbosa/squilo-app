@@ -3,6 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    loadComponent: () =>
+      import('./+auth/containers/login/login.page').then((p) => p.LoginPage),
+  },
+  {
     path: 'home',
     loadComponent: () =>
       import('./+vault/containers/vault-list/vault-list.page').then(
@@ -10,9 +15,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: '',
+    path: 'vault/:id/transactions',
     loadComponent: () =>
-      import('./+auth/containers/login/login.page').then((p) => p.LoginPage),
+      import('./+vault/containers/transaction-list/transaction-list.page').then(
+        (p) => p.TransactionListPage
+      ),
   },
 ];
 

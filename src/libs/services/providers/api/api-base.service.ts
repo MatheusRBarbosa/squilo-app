@@ -33,7 +33,7 @@ export class ApiBaseService<T extends { id: number }> {
   /**
    *
    */
-  protected endpoint(route: number | string): string {
+  protected endpoint(route?: number | string): string {
     return !route ? this.api : `${this.api}/${route}`.trim();
   }
 
@@ -68,9 +68,9 @@ export class ApiBaseService<T extends { id: number }> {
   /**
    *
    */
-  getAll = (params?: Params): Observable<T[]> => {
+  getAll = (route?: number | string, params?: Params): Observable<T[]> => {
     return this.http
-      .get<T[]>(this.api, { params: toHttpParams(params) })
+      .get<T[]>(this.endpoint(route), { params: toHttpParams(params) })
       .pipe(share());
   };
 
