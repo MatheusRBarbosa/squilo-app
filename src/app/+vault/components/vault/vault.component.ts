@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CurrencyPipe } from '@squilo/core';
 import { Vault, VaultTypeEnum } from '@squilo/domain';
@@ -18,6 +19,8 @@ export class VaultComponent {
   @Output()
   onClickInfo$ = new EventEmitter<Vault>();
 
+  constructor(private router: Router) {}
+
   get exceededLimit(): boolean {
     return (
       (this.vault.typeId == VaultTypeEnum.Quota ||
@@ -25,6 +28,11 @@ export class VaultComponent {
       this.vault.total < 0
     );
   }
+
+  /**
+   *
+   */
+  onClickVault = () => {};
 
   /**
    *

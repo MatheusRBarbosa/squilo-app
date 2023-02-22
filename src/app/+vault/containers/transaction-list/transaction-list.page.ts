@@ -9,12 +9,12 @@ import { NavbarComponent } from '../../../shared';
 
 @Component({
   standalone: true,
-  selector: 'squilo-vault-list-page',
-  templateUrl: './vault-list.page.html',
-  styleUrls: ['vault-list.page.scss'],
+  selector: 'squilo-transaction-list-page',
+  templateUrl: './transaction-list.page.html',
+  styleUrls: ['transaction-list.page.scss'],
   imports: [IonicModule, CommonModule, VaultComponent, NavbarComponent],
 })
-export class VaultListPage implements OnInit {
+export class TransactionListPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
   currentVaultModal!: Vault;
