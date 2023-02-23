@@ -1,0 +1,10 @@
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .date {
+        font-size: 16px;
+        opacity: 0.7;
+    }
+}

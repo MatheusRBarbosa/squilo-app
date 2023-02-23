@@ -1,10 +1,8 @@
-<ion-grid (click)="onClickTransaction()">
-  <ion-row>
-    <ion-col>
-      {{ transaction.value }}
-    </ion-col>
-    <ion-col>
-      {{ transaction.date }}
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<div class="transaction">
+  <div>
+    {{ transaction.value | vaultCurrency }}
+  </div>
+  <div class="date">
+    {{ transaction.date | date : "dd/M/YY" : "UTC" }}
+  </div>
+</div>

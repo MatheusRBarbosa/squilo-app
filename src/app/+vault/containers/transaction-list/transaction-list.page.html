@@ -10,7 +10,7 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list *ngFor="let transaction of transactions">
-      <ion-item>
+      <ion-item class="ion-no-padding">
         <squilo-transaction [transaction]="transaction"></squilo-transaction>
       </ion-item>
     </ion-list>
